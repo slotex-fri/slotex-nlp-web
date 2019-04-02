@@ -13,6 +13,13 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>slotex-nlp-web</name>
 	<description>Spring Boot application with Vaadin 13 UI framework</description>
+	
+	<licenses>
+	  <license>
+	    <name>GNU General Public License (GPL)</name>
+	    <url>http://www.gnu.org/licenses/gpl.txt</url>
+	  </license>
+	</licenses>
 
 	<properties>
 		<java.version>1.8</java.version>
