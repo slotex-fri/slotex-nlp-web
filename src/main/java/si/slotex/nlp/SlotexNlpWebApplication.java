@@ -1,8 +1,10 @@
-package si.slotex.nlp.slotexnlpweb;
+package si.slotex.nlp;
 
+import com.vaadin.flow.spring.annotation.EnableVaadin;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@EnableVaadin("si.slotex.nlp")
 @SpringBootApplication
 public class SlotexNlpWebApplication {
 
