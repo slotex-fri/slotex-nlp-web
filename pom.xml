@@ -23,7 +23,16 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<vaadin.version>13.0.1</vaadin.version>
+        <vaadin.version>13.0.1</vaadin.version>
+        
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.build.timestamp.format>yyyy-MM-dd HH</maven.build.timestamp.format>
+
+        <!-- additional libraries versions -->
+        <version.maven.model>3.6.0</version.maven.model>
+        <version.asciidoctor>1.5.7</version.asciidoctor>
+
 	</properties>
 
 	<dependencies>
@@ -67,7 +76,36 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+            </plugin>
+            <!-- Documentation plugin -->
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <version>${version.asciidoctor}</version>
+                <executions>
+                    <execution>
+                        <id>generate-docs</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDocumentName>index.adoc</sourceDocumentName>
+                            <sourceDirectory>${basedir}/doc/</sourceDirectory>
+                            <outputDirectory>${basedir}/doc/generated-html</outputDirectory>
+                            <backend>html</backend>
+                            <doctype>book</doctype>
+                            <attributes>
+                                <snippets>${project.build.directory}/generated-snippets</snippets>
+                                <revnumber>${project.version}</revnumber>
+                                <revdate>${maven.build.timestamp}</revdate>
+                                <organization>${project.organization.name}</organization>
+                            </attributes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
 		</plugins>
 	</build>
 

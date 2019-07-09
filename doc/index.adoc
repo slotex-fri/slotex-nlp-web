@@ -1,0 +1,8 @@
+= SloTex NLP web
+:revremark: Initial version
+:toc: left
+:sectnums:
+:source-highlighter: prettify
+:imagesdir: images
+:icons: font
+
