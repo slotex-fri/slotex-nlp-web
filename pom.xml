@@ -23,8 +23,10 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<vaadin.version>13.0.1</vaadin.version>
+		<version.slotex-nlp.entity>1.0.0</version.slotex-nlp.entity>
         <vaadin.version>13.0.1</vaadin.version>
-        
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.build.timestamp.format>yyyy-MM-dd HH</maven.build.timestamp.format>
@@ -36,6 +38,11 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>si.slotex.nlp</groupId>
+			<artifactId>slotex-nlp-entity</artifactId>
+			<version>${version.slotex-nlp.entity}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-spring-boot-starter</artifactId>

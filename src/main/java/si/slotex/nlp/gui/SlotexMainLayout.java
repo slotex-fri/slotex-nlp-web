@@ -9,7 +9,6 @@ import com.github.appreciated.app.layout.router.AppLayoutRouterLayout;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.component.page.Viewport;
-import si.slotex.nlp.gui.pages.admin.AdminInProcessing;
 import si.slotex.nlp.gui.pages.admin.AdminMarkedEntities;
 import si.slotex.nlp.gui.pages.admin.AdminProcessedDocuments;
 import si.slotex.nlp.gui.pages.admin.AdminInfo;
@@ -30,7 +29,6 @@ public class SlotexMainLayout extends AppLayoutRouterLayout {
                         .add(LeftSubMenuBuilder.get("Administration",VaadinIcon.OPTIONS.create())
                                 .add(new LeftNavigationItem("Processed documents",VaadinIcon.RECORDS.create(), AdminProcessedDocuments.class))
                                     .add(new LeftNavigationItem("Marked entities",VaadinIcon.BOOKMARK_O.create(), AdminMarkedEntities.class))
-                                    .add(new LeftNavigationItem("In processing",VaadinIcon.FILE_PROCESS.create(), AdminInProcessing.class))
                                     .add(new LeftNavigationItem("Informations",VaadinIcon.INFO_CIRCLE_O.create(), AdminInfo.class))
                                     .build())
                         .add(LeftSubMenuBuilder.get("Learn",VaadinIcon.COG_O.create())
