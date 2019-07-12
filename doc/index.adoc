@@ -6,3 +6,90 @@
 :imagesdir: images
 :icons: font
 
+This document is the user documentation for the SloTex NLP user interface. The document is divided into sections corresponding to different administrative pages in the user interface.
+The two main pages are _Administration_ and _Learn_. 
+
+image:Slika2.png[]
+
+== Administration
+
+The _Administration_ tab allows the user to check the already processed documents, check and further edit named entities, check the queue and system status
+
+image::Slika1.png[]
+
+=== Processed documents 
+
+The page shows all already processed documents. The documents are shown in the table. The details on each document can be seen by clicking on the respective document.
+
+image::Slika4.png[]
+
+The detailed review shows the whole text and the number of tokens.
+
+image::Slika5.png[]
+
+The tokens review shows the tokenized text with part-of-speech tags, lemmas and named-entities tags in the form of a table.
+
+image::Slika6.png[]
+
+Documents can be chosen for processing by pressing the button _Process documents_.
+
+image::Slika17.png[]
+
+=== Marked entities 
+
+The tab _Marked entities_ shows named entities and their types.
+
+image::Slika7.png[]
+
+=== Informations 
+
+The tab _Informations_ shows the number of documents in the work and wait queues and their ID numbers.
+The _Back to wait queue_ button returns documents from work queue to the wait queue.
+The wait queue can be deleted by pressing the _Delete wait queue_ button.
+The _Informations_ tab also shows the status of the servers.
+
+image::Slika8.png[]
+
+== Learn
+
+The _Learn_ tab manages the processes related to machine learning.
+
+=== Manage
+
+The _Manage_ tab shows a table of documents, their titles, languages and numbers of sentences.
+
+image::Slika9.png[]
+
+Click a document to see a detailed review organized by sentences and showing numbers of tokens in each sentence. 
+Press the _Correct and learn_ button to edit the tokens.
+
+image::Slika10.png[]
+
+The _Tokens review_ shows words with their part-of-speech tags, lemmas and named-entity tags.
+Click on a word to edit the tags.
+
+image::Slika11.png[]
+
+After the tags are edited, click _save_, to send the correction back to the model and re-learn it based on the corrections. The button will also close the current dialog window and _Tokens review_ window. By choosing the _close_ button however, the changes will be cancelled and the dialog window will close without any further actions.
+
+image::Slika12.png[]
+
+=== Models
+
+The _Models_ tab shows when the model relearned with a timestamp and the model's name.
+
+image::Slika13.png[]
+
+=== Corpora
+
+To select which lines from a corpus to access for relearning of the model, enter the numeric values of the lines and press the button _Get_. The maximum range is limited to 20 lines. 
+
+image::Slika14.png[]
+
+After successfully accessing the lines entities can be edited or corrected by hand. Every line is marked with two types of marking entities. The differences are indicated by the checkmark.
+
+image::Slika15.png[]
+
+Tagged sentences can be corrected by hand by clicking on them and setting the status to either _APPROVE_, _DECLINE_ or _PENDING_.
+
+image::Slika16.png[] 
