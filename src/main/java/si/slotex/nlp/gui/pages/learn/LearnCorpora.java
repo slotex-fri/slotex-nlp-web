@@ -27,6 +27,8 @@ import si.slotex.nlp.gui.managers.Manager;
 
 import javax.annotation.PostConstruct;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,8 +118,7 @@ public class LearnCorpora extends ContentView {
         uploadFile = new Upload(buffer);
         uploadFile.addFinishedListener(event -> {
             try{
-                file = File.createTempFile("uploadFile",".tmp");
-                file.deleteOnExit();
+                file = new File("./slo-ner-"+collection.getValue().toLowerCase()+".train");
                 logger.info(file.getAbsolutePath());
                 inputStream = buffer.getInputStream();
                 logger.info(inputStream.available());
@@ -147,6 +148,11 @@ public class LearnCorpora extends ContentView {
         Button up = new Button("upload");
         up.addClickListener(buttonClickEvent -> {
                 corporaManager.uploadCorpus(file,collection.getValue().toLowerCase());
+                try {
+                    Files.deleteIfExists(Paths.get(file.getAbsolutePath()));
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
                 uploadWarning.close();
         });
         Button cancel = new Button("cancel");
@@ -225,7 +231,7 @@ public class LearnCorpora extends ContentView {
     //executes saving of corrected sentences and trains model with new corpus
     private void trainModel(){
         logger.log(Logger.Level.INFO,"training Corpus...");
-        corporaManager.saveSentences(collection.getValue().toLowerCase(),list);// shranjevanje v bazo pred testiranjem, ni še testirano
+        //corporaManager.saveSentences(collection.getValue().toLowerCase(),changedList);// doesn't save properly
         corporaManager.getData("/retrain/"+collection.getValue().toLowerCase());
         sentences.setItems();
         collection.setEnabled(true);
@@ -265,11 +271,12 @@ public class LearnCorpora extends ContentView {
         SentenceInfo.add(new Html("<p>Sentence: </p>"), sentenceData);
         setupTokensGrid();
         Button closeBtn = new Button("close");
-        Button saveBtn = new Button("saveSentences changes");
+        Button saveBtn = new Button("save changes");
         saveBtn.addClickListener(buttonClickEvent -> {
             saveChanges();
             Notification saveInfo = new Notification("Changes saved!",3000);
             saveInfo.setPosition(Notification.Position.TOP_CENTER);
+            details.close();
             saveInfo.open();
         });
         closeBtn.addClickListener(click -> details.close());
@@ -356,6 +363,7 @@ public class LearnCorpora extends ContentView {
         }
         list.get(list.indexOf(activeSentence)).setSentence(StringUtils.join(sentenceWords, " "));
         list.get(list.indexOf(activeSentence)).setEdit(true);
+        corporaManager.saveSentence(activeSentence);
         sentences.setItems(list);
     }
 }

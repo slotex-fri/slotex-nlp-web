@@ -2,21 +2,20 @@ package si.slotex.nlp.gui.managers;
 
 import com.vaadin.flow.component.notification.Notification;
 import org.jboss.logging.Logger;
-import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataOutput;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import si.slotex.nlp.entity.CorpusSentenceDiff;
 
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.GenericEntity;
-import javax.ws.rs.core.MediaType;
-
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -86,7 +85,7 @@ public class Manager {
         String url = scheme+"://"+host + ":" + port + "/files/upload";
 
         logger.info("Sending corrected corpus for the following model entity: " + modelType);
-        MultipartFormDataOutput multipartData = new MultipartFormDataOutput();
+        /*MultipartFormDataOutput multipartData = new MultipartFormDataOutput();
         try
         {
             multipartData.addFormData("file",new FileInputStream(file), MediaType.APPLICATION_OCTET_STREAM_TYPE, "slo-ner-" + modelType + ".train");
@@ -94,13 +93,15 @@ public class Manager {
         catch (FileNotFoundException fnf)
         {
             logger.warn("File for upload was not found!");
-        }
+        }*/
 
-
+        MultiValueMap<String, Object> bodyMap = new LinkedMultiValueMap<>();
+        bodyMap.add("file", new FileSystemResource(file));
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(org.springframework.http.MediaType.MULTIPART_FORM_DATA);
-        HttpEntity<Object> entity = new HttpEntity<>(multipartData,headers);
-        ResponseEntity<String> response = restTemplate.postForEntity(url,entity,String.class);
+        HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(bodyMap, headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(url,HttpMethod.POST,entity,String.class);
 
         logger.info("Responded with: "+response.toString());
         logger.info("Sent the newly created corpus from statistical model and dictionary!");
@@ -115,5 +116,16 @@ public class Manager {
         headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
         HttpEntity<Object> requestEntity = new HttpEntity<Object>(CorpusSentenceDiff,headers);
         restTemplate.exchange(url, HttpMethod.POST, requestEntity,new ParameterizedTypeReference<List<CorpusSentenceDiff>>(){});
+    }
+
+    //saves sentence to specified corpus
+    public void saveSentence(CorpusSentenceDiff CorpusSentenceDiff)
+    {
+        logger.info("Saving corrected corpus sentences...");
+        String url = scheme+"://"+host + ":" + port + "/corpus/sentence";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
+        HttpEntity<Object> requestEntity = new HttpEntity<Object>(CorpusSentenceDiff,headers);
+        restTemplate.postForEntity(url, requestEntity,CorpusSentenceDiff.class);
     }
 }
