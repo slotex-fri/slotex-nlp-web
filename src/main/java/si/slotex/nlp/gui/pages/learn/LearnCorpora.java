@@ -104,7 +104,7 @@ public class LearnCorpora extends ContentView {
         getSentences = new Button("Get");
         getSentences.addClickListener(click -> getGrid());
 
-        train = new Button("Learn");
+        train = new Button("Train");
         train.addClickListener(click -> trainModel());
         train.setEnabled(false);
 

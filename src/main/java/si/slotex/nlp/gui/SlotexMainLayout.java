@@ -31,7 +31,7 @@ public class SlotexMainLayout extends AppLayoutRouterLayout {
                                     .add(new LeftNavigationItem("Marked entities",VaadinIcon.BOOKMARK_O.create(), AdminMarkedEntities.class))
                                     .add(new LeftNavigationItem("Informations",VaadinIcon.INFO_CIRCLE_O.create(), AdminInfo.class))
                                     .build())
-                        .add(LeftSubMenuBuilder.get("Learn",VaadinIcon.COG_O.create())
+                        .add(LeftSubMenuBuilder.get("Training",VaadinIcon.COG_O.create())
                                 .add(new LeftNavigationItem("Manage",VaadinIcon.EDIT.create(), LearnManage.class))
                                 .add(new LeftNavigationItem("Models",VaadinIcon.PACKAGE.create(), LearnModels.class))
                                 .add(new LeftNavigationItem("Corpora",VaadinIcon.OPEN_BOOK.create(), LearnCorpora.class))
